@@ -1,11 +1,11 @@
 const {createApp, ref} = Vue;
 const Dexie = window.Dexie,
-    db = new Dexie('db_codigo_estudiante');
+    db = new Dexie('db_usss037423_usss026723');
 
 const app = createApp({
     components: {
         autor,
-        libros,
+        libro,
         buscarautor,
         buscarlibro
     },
@@ -14,7 +14,7 @@ const app = createApp({
             forms : {
                 autor: {mostrar: false},
                 buscarAutor: {mostrar: false},
-                libros: {mostrar: false},
+                libro: {mostrar: false},
                 buscarLibro: {mostrar: false},
                 matricula: {mostrar: false},
             },
@@ -33,7 +33,7 @@ const app = createApp({
     },
     created() {
         db.version(1).stores({
-            autor: '++idAutor, codigo, nombre, pais, telefono',
+            autores: '++idAutor, codigo, nombre, pais, telefono',
             libros: '++idLibro, idAutor, isbn, titulo, editorial, edicion',
         });
     }

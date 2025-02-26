@@ -42,7 +42,7 @@
             </nav>
         </div>
         <div class="container-fluid" id="appSistema">
-            <autor v-show="forms.autor.mostrar" :forms="forms" ref="autor" @buscar="buscar('buscarautor', 'listarAutor')"></autor>
+            <autor v-show="forms.autor.mostrar" :forms="forms" ref="autor" @buscar="buscar('buscarautor', 'listarAutores')"></autor>
             <buscarautor v-show="forms.buscarAutor.mostrar" ref="buscarautor" @modificar="modificar('autor', 'modificarAutor', $event)"></buscarautor>
             <libro v-show="forms.libro.mostrar" :forms="forms" ref="libro" @buscar="buscar('buscarlibro', 'listarLibros')"></libro>
             <buscarlibro v-show="forms.buscarLibro.mostrar" ref="buscarlibro" @modificar="modificar('libro', 'modificarLibro', $event)"></buscarlibro>
@@ -52,11 +52,114 @@
     <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="componentes/busqueda_autor.js"></script>
-    <script src="componentes/autor.js"></script>
+    <script src="componentes/busqueda_autores.js"></script>
+    <script src="componentes/autores.js"></script>
     <script src="componentes/busqueda_libros.js"></script>
     <script src="componentes/libros.js"></script>
     <script src="main.js"></script>
 </body>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        background: url('img/tu-image.jpg') no-repeat center center fixed;
+        background-size: cover;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        filter: blur(8px);
+        z-index: -1;
+        opacity: 0.7;
+    }
+
+    /* Navbar */
+    .navbar {
+    background-color: white !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav .nav-link {
+    color: #333 !important;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #6200ea !important;
+    text-decoration: underline;
+}
+
+    /* Botones */
+    .btn-primary {
+        background-color: #03dac6;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary:hover {
+        background-color: #018786;
+        transform: scale(1.05);
+    }
+
+    .btn-primary:active {
+        transform: scale(0.98);
+    }
+
+    /* Tarjetas y contenedores */
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Formularios */
+    input,
+    select,
+    textarea {
+        border-radius: 8px !important;
+        border: 1px solid #ccc !important;
+        padding: 10px !important;
+        transition: all 0.3s ease-in-out;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #6200ea !important;
+        box-shadow: 0 0 5px rgba(98, 0, 234, 0.5) !important;
+        outline: none;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .container-fluid {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+</style>
 
 </html>
