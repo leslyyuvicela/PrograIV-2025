@@ -1,81 +1,41 @@
-const { createApp } = Vue;
+const {createApp, ref} = Vue;
+const Dexie = window.Dexie,
+    db = new Dexie('db_academico');
 
-createApp({
+const app = createApp({
+    components: {
+        alumno,
+        materia,
+        buscaralumno,
+        buscarmateria
+    },
     data() {
         return {
-            busqueda: '',
-            formulario: {
-                codigo: '',
-                nombre: '',
-                direccion: '',
-                municipio: '',
-                departamento: '',
-                distrito: '',
-                telefono: '',
-                fechaNacimiento: '',
-                sexo: ''
+            forms : {
+                alumno: {mostrar: false},
+                buscarAlumno: {mostrar: false},
+                materia: {mostrar: false},
+                buscarMateria: {mostrar: false},
+                matricula: {mostrar: false},
             },
-            alumnos: [],
-            campos: [
-                { id: 'codigo', label: 'Código', type: 'text' },
-                { id: 'nombre', label: 'Nombre', type: 'text' },
-                { id: 'direccion', label: 'Dirección', type: 'text' },
-                { id: 'municipio', label: 'Municipio', type: 'text' },
-                { id: 'departamento', label: 'Departamento', type: 'text' },
-                { id: 'distrito', label: 'Distrito', type: 'text' },
-                { id: 'telefono', label: 'Teléfono', type: 'text' },
-                { id: 'fechaNacimiento', label: 'Fecha de Nacimiento', type: 'date' },
-                { id: 'sexo', label: 'Sexo', type: 'select', options: ['Masculino', 'Femenino'] }
-            ]
         };
     },
-    computed: {
-        alumnosFiltrados() {
-            return this.alumnos.filter(alumno =>
-                alumno.nombre.toLowerCase().includes(this.busqueda.toLowerCase()) ||
-                alumno.codigo.toLowerCase().includes(this.busqueda.toLowerCase())
-            );
-        }
-    },
     methods: {
-        guardarAlumno() {
-            const nuevoAlumno = { ...this.formulario };
-            localStorage.setItem(nuevoAlumno.codigo, JSON.stringify(nuevoAlumno));
-            this.listarAlumnos();
-            this.limpiarFormulario();
+        buscar(form, metodo) {
+            this.$refs[form][metodo]();
         },
-        listarAlumnos() {
-            this.alumnos = [];
-            for (let i = 0; i < localStorage.length; i++) {
-                let clave = localStorage.key(i);
-                let valor = JSON.parse(localStorage.getItem(clave));
-                this.alumnos.push(valor);
-            }
+        abrirFormulario(componente) {
+            this.forms[componente].mostrar = !this.forms[componente].mostrar;
         },
-        verAlumno(alumno) {
-            this.formulario = { ...alumno };
-        },
-        eliminarAlumno(codigo) {
-            if (confirm('¿Seguro que deseas eliminar este alumno?')) {
-                localStorage.removeItem(codigo);
-                this.listarAlumnos();
-            }
-        },
-        limpiarFormulario() {
-            this.formulario = {
-                codigo: '',
-                nombre: '',
-                direccion: '',
-                municipio: '',
-                departamento: '',
-                distrito: '',
-                telefono: '',
-                fechaNacimiento: '',
-                sexo: ''
-            };
+        modificar(form, metodo, datos) {
+            this.$refs[form][metodo](datos);
         }
     },
     created() {
-        this.listarAlumnos();
+        db.version(1).stores({
+            alumnos: '++idAlumno, codigo, nombre, direccion, telefono, email',
+            materias: '++idMateria, codigo, nombre, uv',
+        });
     }
-}).mount('#app');
+});
+app.mount('#app');
