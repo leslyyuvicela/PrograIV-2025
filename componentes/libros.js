@@ -11,12 +11,21 @@ const libro = {
             titulo: '',
             editorial: '',
             edicion: ''
-        }
+        };
     },
     methods: {
         buscarLibro() {
             this.forms.buscarLibro.mostrar = !this.forms.buscarLibro.mostrar;
             this.$emit('buscar');
+        },
+        modificarLibro(libro) {
+            this.accion = 'modificar';
+            this.idLibro = libro.idLibro;
+            this.idAutor = libro.idAutor;
+            this.isbn = libro.isbn;
+            this.titulo = libro.titulo;
+            this.editorial = libro.editorial;
+            this.edicion = libro.edicion;
         },
         guardarLibro() {
             let libro = {
@@ -44,10 +53,28 @@ const libro = {
         },
         cargarAutores() {
             db.autores.toArray().then(autores => this.autores = autores);
+        },
+        cargarLibro(libro) {
+            // Cuando un libro es seleccionado, se actualizan los campos del formulario
+            this.accion = 'modificar';
+            this.idLibro = libro.idLibro;
+            this.idAutor = libro.idAutor;
+            this.isbn = libro.isbn;
+            this.titulo = libro.titulo;
+            this.editorial = libro.editorial;
+            this.edicion = libro.edicion;
         }
     },
     created() {
         this.cargarAutores();
+    },
+    watch: {
+        // Reaccionamos al cambio de 'libroSeleccionado' para cargar el libro al formulario
+        'forms.libroSeleccionado': function(libro) {
+            if (libro) {
+                this.cargarLibro(libro);
+            }
+        }
     },
     template: `
         <div class="container mt-4">

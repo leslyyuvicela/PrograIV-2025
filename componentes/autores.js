@@ -15,6 +15,14 @@ const autor = {
             this.forms.buscarAutor.mostrar = !this.forms.buscarAutor.mostrar;
             this.$emit('buscar');
         },
+        modificarAutor(autor) {
+            this.accion = 'modificar';
+            this.idAutor = autor.idAutor;
+            this.codigo = autor.codigo;
+            this.nombre = autor.nombre;
+            this.pais = autor.pais;
+            this.telefono = autor.telefono;
+        },
         guardarAutor() {
             let autor = {
                 codigo: this.codigo,
@@ -22,7 +30,7 @@ const autor = {
                 pais: this.pais,
                 telefono: this.telefono
             };
-            if (this.accion === 'modificar') {
+            if (this.accion == 'modificar') {
                 autor.idAutor = this.idAutor;
             }
             db.autores.put(autor);
