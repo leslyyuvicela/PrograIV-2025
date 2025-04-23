@@ -1,4 +1,4 @@
-const buscaralumno = {
+    const buscaralumno = {
     data() {
         return {
             buscar: '',
@@ -11,14 +11,28 @@ const buscaralumno = {
             this.$emit('modificar', alumno);
         },
         eliminarAlumno(alumno) {
-            alertify.confirm('Eliminar Alumno', `¿Esta seguro de eliminar el alumno ${alumno.nombre}?`, () => {
-                db.alumnos.delete(alumno.idAlumno);
-                this.listarAlumnos();
-                alertify.success(`Alumno ${alumno.nombre} eliminado`);
+            alertify.confirm('Eliminar Alumno', `¿Esta seguro de eliminar el alumno ${alumno.nombre}?`, async() => {
+                let respuesta = await fetch(`private/modulos/alumnos/alumno.php?accion=eliminar&alumnos=${JSON.stringify(alumno)}`),
+                    data = await respuesta.json();
+                if( data != true ){
+                    alertify.error(data);
+                }else{
+                    db.alumnos.delete(alumno.codigo_transaccion);
+                    this.listarAlumnos();
+                    alertify.success(`Alumno ${alumno.nombre} eliminado`);
+                }
             }, () => { });
         },
         async listarAlumnos() {
             this.alumnos = await db.alumnos.filter(alumno => alumno[this.buscarTipo].toLowerCase().includes(this.buscar.toLowerCase())).toArray();
+            if (this.alumnos.length<1) {
+                fetch('private/modulos/alumnos/alumno.php?accion=consultar')
+                    .then(response => response.json())
+                    .then(data =>{
+                        this.alumnos = data;
+                        db.alumnos.bulkAdd(data);
+                    });
+            }
         },
     },
     created() {
@@ -54,7 +68,7 @@ const buscaralumno = {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="alumno in alumnos" @click="modificarAlumno(alumno)" :key="alumno.idAlumno">
+                        <tr v-for="alumno in alumnos" @click="modificarAlumno(alumno)" :key="alumno.codigo_transaccion">
                             <td>{{ alumno.codigo }}</td>
                             <td>{{ alumno.nombre }}</td>
                             <td>{{ alumno.direccion }}</td>
