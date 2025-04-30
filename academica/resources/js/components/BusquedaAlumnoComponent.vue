@@ -1,49 +1,63 @@
 <template>
-    <div class="row">
-        <div class="col-6">
-            <table class="table table-sm table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>BUSCAR POR</th>
-                        <th>
-                            <select v-model="buscarTipo" class="form-control">
-                                <option value="codigo">CODIGO</option>
-                                <option value="nombre">NOMBRE</option>
-                                <option value="direccion">DIRECCION</option>
-                                <option value="telefono">TELEFONO</option>
-                                <option value="email">EMAIL</option>
-                            </select>
-                        </th>
-                        <th colspan="4">
-                            <input type="text" @keyup="listarAlumnos()" v-model="buscar" class="form-control">
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>CODIGO</th>
-                        <th>NOMBRE</th>
-                        <th>DIRECCION</th>
-                        <th>TELEFONO</th>
-                        <th>EMAIL</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="alumno in alumnos" @click="modificarAlumno(alumno)" :key="alumno.codigo_transaccion">
-                        <td>{{ alumno.codigo }}</td>
-                        <td>{{ alumno.nombre }}</td>
-                        <td>{{ alumno.direccion }}</td>
-                        <td>{{ alumno.telefono }}</td>
-                        <td>{{ alumno.email }}</td>
-                        <td>
-                            <button class="btn btn-danger btn-sm" 
-                                @click.stop="eliminarAlumno(alumno)">DEL</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+  <div class="container py-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Buscar Alumnos</h5>
+      </div>
+      <div class="card-body">
+        <div class="row align-items-end mb-3">
+          <div class="col-md-4">
+            <label class="form-label">Buscar por</label>
+            <select v-model="buscarTipo" class="form-select">
+              <option value="codigo">Código</option>
+              <option value="nombre">Nombre</option>
+              <option value="direccion">Dirección</option>
+              <option value="telefono">Teléfono</option>
+              <option value="email">Email</option>
+            </select>
+          </div>
+          <div class="col-md-8">
+            <label class="form-label">Término de búsqueda</label>
+            <input type="text" @keyup="listarAlumnos" v-model="buscar" class="form-control" placeholder="Escribe para buscar..." />
+          </div>
         </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-light">
+              <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="alumno in alumnos" :key="alumno.codigo_transaccion" @click="modificarAlumno(alumno)">
+                <td>{{ alumno.codigo }}</td>
+                <td>{{ alumno.nombre }}</td>
+                <td>{{ alumno.direccion }}</td>
+                <td>{{ alumno.telefono }}</td>
+                <td>{{ alumno.email }}</td>
+                <td>
+                  <button class="btn btn-sm btn-danger" @click.stop="eliminarAlumno(alumno)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </td>
+              </tr>
+              <tr v-if="alumnos.length === 0">
+                <td colspan="6" class="text-muted">No se encontraron resultados.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
- </template>
+  </div>
+</template>
+
  <script>
     import axios from 'axios';
     import alertify from 'alertifyjs';

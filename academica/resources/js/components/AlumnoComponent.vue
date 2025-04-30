@@ -1,51 +1,65 @@
 <template>
-    <div class="row">
-        <div class="col-6">
-            <form id="frmAlumno" name="frmAlumno" @submit.prevent="guardarAlumno">
-                <div class="card border-dark mb-3">
-                    <div class="card-header bg-dark text-white">Registro de Alumnos</div>
-                    <div class="card-body">
-                        <div class="row p-1">
-                            <div class="col-3 col-md-2">CODIGO</div>
-                            <div class="col-9 col-md-4">
-                                <input required v-model="alumno.codigo" type="text" name="txtCodigoAlumno" id="txtCodigoAlumno" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row p-1">
-                            <div class="col-3 col-md-2">NOMBRE</div>
-                            <div class="col-9 col-md-6">
-                                <input required pattern="[A-Za-zñÑáéíóú ]{3,150}" v-model="alumno.nombre" type="text" name="txtNombreAlumno" id="txtNombreAlumno" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row p-1">
-                            <div class="col-3 col-md-2">DIRECCION</div>
-                            <div class="col-9 col-md-8">
-                                <input required v-model="alumno.direccion" type="text" name="txtDireccionAlumno" id="txtDireccionAlumno" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row p-1">
-                            <div class="col-3 col-md-2">TELEFONO</div>
-                            <div class="col-9 col-md-4">
-                                <input v-model="alumno.telefono" type="text" name="txtTelefonoAlumno" id="txtTelefonoAlumno" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row p-1">
-                            <div class="col-3 col-md-2">EMAIL</div>
-                            <div class="col-9 col-md-6">
-                                <input v-model="alumno.email" type="text" name="txtEmailAlumno" id="txtEmailAlumno" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-dark text-center">
-                        <input type="submit" value="Guardar" class="btn btn-primary"> 
-                        <input type="reset" value="Nuevo" class="btn btn-warning">
-                        <input type="button" @click="buscarAlumno" value="Buscar" class="btn btn-info">
-                    </div>
-                </div>
-            </form>
+  <div class="container py-4">
+    <form id="frmAlumno" name="frmAlumno" @submit.prevent="guardarAlumno">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Registro de Alumnos</h5>
         </div>
-    </div>
+        <div class="card-body">
+          <div class="mb-3 row">
+            <label for="txtCodigoAlumno" class="col-sm-2 col-form-label">Código</label>
+            <div class="col-sm-4">
+              <input required v-model="alumno.codigo" type="text" id="txtCodigoAlumno" class="form-control" />
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="txtNombreAlumno" class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-6">
+              <input required pattern="[A-Za-zñÑáéíóú ]{3,150}" v-model="alumno.nombre" type="text" id="txtNombreAlumno" class="form-control" />
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="txtDireccionAlumno" class="col-sm-2 col-form-label">Dirección</label>
+            <div class="col-sm-8">
+              <input required v-model="alumno.direccion" type="text" id="txtDireccionAlumno" class="form-control" />
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="txtTelefonoAlumno" class="col-sm-2 col-form-label">Teléfono</label>
+            <div class="col-sm-4">
+              <input v-model="alumno.telefono" type="text" id="txtTelefonoAlumno" class="form-control" />
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="txtEmailAlumno" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-6">
+              <input v-model="alumno.email" type="email" id="txtEmailAlumno" class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer bg-light text-end">
+          <div class="d-flex justify-content-end gap-2">
+            <button type="submit" class="btn btn-success">
+              <i class="bi bi-save me-1"></i> Guardar
+            </button>
+            <button type="reset" @click="nuevoAlumno" class="btn btn-secondary">
+              <i class="bi bi-plus-circle me-1"></i> Nuevo
+            </button>
+            <button type="button" @click="buscarAlumno" class="btn btn-info text-white">
+              <i class="bi bi-search me-1"></i> Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </template>
+
 <script>
     import axios from 'axios';
     import alertify from 'alertifyjs';
