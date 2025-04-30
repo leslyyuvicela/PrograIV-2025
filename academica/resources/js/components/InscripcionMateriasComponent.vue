@@ -66,10 +66,10 @@ export default {
     };
   },
   methods: {
-    buscarInscripcionMateria() {
-      this.forms.buscarInscripcionMaterias.mostrar = !this.forms.buscarInscripcionMaterias.mostrar;
-      this.$emit('buscar');
-    },
+  buscarInscripcionMateria() {
+    this.forms.buscarMateriasInscritas.mostrar = !this.forms.buscarMateriasInscritas.mostrar;
+    this.$emit('buscar');
+  },
     modificarInscripcionMateria(inscripcion_materia) {
       this.idInscripcion = inscripcion_materia.idInscripcion;
       this.idAlumno = inscripcion_materia.idAlumno;
@@ -90,8 +90,8 @@ export default {
       this.idMateria = '';
     },
     cargarDatos() {
-      db.matriculas.toArray().then(alumnos => this.alumnos = alumnos);
-      db.materias.toArray().then(materias => this.materias = materias);
+      //db.matriculas.toArray().then(alumnos => this.alumnos = alumnos);
+      //db.materias.toArray().then(materias => this.materias = materias);
     }
   },
   created() {
