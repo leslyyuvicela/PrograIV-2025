@@ -9,8 +9,8 @@ import materia from './components/MateriaComponent.vue';
 import buscar_materia from './components/BusquedaMateriaComponent.vue';
 import inscripcion_materia from './components/InscripcionMateriasComponent.vue';
 import buscar_materias_inscritas from './components/BuscarMateriasInscritasComponent.vue';
-import MatriculaComponent from './components/MatriculaComponent.vue';
-import BusquedaMatriculasComponent from './components/BusquedaMatriculasComponent.vue';
+import matricula from './components/MatriculaComponent.vue';
+import buscar_matriculas from './components/BusquedaMatriculasComponent.vue';
 
 window.db = new Dexie('db_academico');
 
