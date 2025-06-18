@@ -1,0 +1,47 @@
+/* Todos los v-text-field */
+.v-text-field .v-field {
+  border: 1px solid #b1b1b1;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  color: #676269;
+}
+
+
+.v-text-field .v-field.v-field--error {
+  border-color: #ff5252 !important;
+  box-shadow: 0 0 0 2px rgba(255, 82, 82, 0.2);
+}
+
+.v-field.v-field--error.v-field--focused {
+  /* Aplica cuando hay error y el campo está enfocado */
+  border-color: #ff1744 !important;
+  box-shadow: 0 0 0 2px rgba(255, 23, 68, 0.3);
+  animation: shake 0.2s linear 1;
+    background-color: #ffeaea !important; /* fondo rojo claro */
+}
+
+
+.v-btn{
+  text-transform: none;
+  font-family: poppins, sans-serif;
+  padding: 12px 16px;
+}
+
+.v-btn:hover{
+  /**/
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0.9;
+  transition: transform 0.2s ease-in-out;
+  transform: scale(1.04);
+}
+
+
+
+
+@keyframes shake {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0px); }
+}

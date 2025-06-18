@@ -1,0 +1,8 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/mariadb:1": {
+      "version": "10.11"
+    }
+  }
+}

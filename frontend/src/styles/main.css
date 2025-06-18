@@ -1,0 +1,14 @@
+
+.hover-grow:hover{
+    transition: transform 0.2s ease-in-out;
+    transform: scale(1.04);
+}
+
+.hover-grow-large:hover{
+    transition: transform 0.2s ease-in-out;
+    transform: scale(1.15);
+}
+
+.pointer {
+    cursor: pointer;
+}
